@@ -11,6 +11,8 @@ import {
   Wallet,
   Users,
   History,
+  Bell,
+  ShieldCheck,
   Trophy,
   Settings,
   HelpCircle,
@@ -24,6 +26,8 @@ const navItems = [
   { href: '/wallet', label: 'Wallet', icon: Wallet },
   { href: '/referrals', label: 'Referrals', icon: Users },
   { href: '/transactions', label: 'Transactions', icon: History },
+  { href: '/notifications', label: 'Notifications', icon: Bell },
+  { href: '/kyc', label: 'KYC Verification', icon: ShieldCheck },
   { href: '/leaderboard', label: 'Leaderboard', icon: Trophy },
   { href: '/settings', label: 'Settings', icon: Settings },
 ]
@@ -66,7 +70,7 @@ export function DashboardSidebar({ isOpen, onClose }: DashboardSidebarProps) {
       {/* Navigation */}
       <nav className="flex-1 px-4 py-6 space-y-1 overflow-y-auto">
         {navItems.map((item) => {
-          const isActive = pathname === item.href
+          const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`)
           return (
             <Link
               key={item.href}

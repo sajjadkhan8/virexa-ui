@@ -1,6 +1,8 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import Link from 'next/link'
+import { Button } from '@/components/ui/button'
 import { BalanceCards } from '@/components/dashboard/balance-cards'
 import { PortfolioChart } from '@/components/dashboard/portfolio-chart'
 import { ActiveStrategies } from '@/components/dashboard/active-strategies'
@@ -15,9 +17,15 @@ export default function DashboardPage() {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
+        className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
       >
-        <h1 className="text-2xl lg:text-3xl font-bold text-foreground">Dashboard</h1>
-        <p className="text-muted-foreground">Welcome back, John! Here&apos;s your trading overview.</p>
+        <div>
+          <h1 className="text-2xl lg:text-3xl font-bold text-foreground">Dashboard</h1>
+          <p className="text-muted-foreground">Welcome back, John! Here&apos;s your trading overview.</p>
+        </div>
+        <Link href="/onboarding">
+          <Button variant="outline">Complete Onboarding</Button>
+        </Link>
       </motion.div>
 
       {/* Balance Cards */}

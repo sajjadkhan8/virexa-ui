@@ -7,17 +7,15 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { 
+import {
   Copy, 
   Users, 
   DollarSign, 
-  TrendingUp, 
-  Share2, 
+  Share2,
   Gift,
   Check,
-  Twitter,
-  Facebook,
+  Send,
+  Globe,
   Mail,
   MessageCircle
 } from "lucide-react"
@@ -25,6 +23,7 @@ import { ReferralStats } from "@/components/referrals/referral-stats"
 import { ReferralTiers } from "@/components/referrals/referral-tiers"
 import { ReferralHistory } from "@/components/referrals/referral-history"
 import { ReferredUsers } from "@/components/referrals/referred-users"
+import Link from "next/link"
 
 export default function ReferralsPage() {
   const [copied, setCopied] = useState(false)
@@ -45,6 +44,31 @@ export default function ReferralsPage() {
       </div>
 
       <ReferralStats />
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <Link href="/referrals/tree" className="block">
+          <Card className="bg-card border-border hover:border-accent/40 transition-colors">
+            <CardContent className="p-4 flex items-center justify-between">
+              <div>
+                <p className="font-semibold text-foreground">Referral Tree</p>
+                <p className="text-sm text-muted-foreground">Visualize your multi-level network</p>
+              </div>
+              <Users className="h-5 w-5 text-accent" />
+            </CardContent>
+          </Card>
+        </Link>
+        <Link href="/referrals/commissions" className="block">
+          <Card className="bg-card border-border hover:border-primary/40 transition-colors">
+            <CardContent className="p-4 flex items-center justify-between">
+              <div>
+                <p className="font-semibold text-foreground">Affiliate Commissions</p>
+                <p className="text-sm text-muted-foreground">Track paid and pending commission entries</p>
+              </div>
+              <DollarSign className="h-5 w-5 text-primary" />
+            </CardContent>
+          </Card>
+        </Link>
+      </div>
 
       {/* Referral Link Section */}
       <motion.div
@@ -85,10 +109,10 @@ export default function ReferralsPage() {
               </div>
               <div className="flex gap-2">
                 <Button variant="outline" size="icon" className="shrink-0">
-                  <Twitter className="h-4 w-4" />
+                  <Send className="h-4 w-4" />
                 </Button>
                 <Button variant="outline" size="icon" className="shrink-0">
-                  <Facebook className="h-4 w-4" />
+                  <Globe className="h-4 w-4" />
                 </Button>
                 <Button variant="outline" size="icon" className="shrink-0">
                   <MessageCircle className="h-4 w-4" />

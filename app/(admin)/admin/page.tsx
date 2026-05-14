@@ -1,10 +1,11 @@
 "use client"
 
 import { motion } from "framer-motion"
+import Link from "next/link"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import {
   Users,
   DollarSign,
@@ -12,7 +13,6 @@ import {
   Activity,
   ArrowUpRight,
   ArrowDownRight,
-  MoreHorizontal,
   Eye
 } from "lucide-react"
 import {
@@ -22,9 +22,7 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  ResponsiveContainer,
-  BarChart,
-  Bar
+  ResponsiveContainer
 } from "recharts"
 
 const stats = [
@@ -193,7 +191,9 @@ export default function AdminDashboardPage() {
               <CardTitle>Pending Withdrawals</CardTitle>
               <CardDescription>Withdrawals awaiting approval</CardDescription>
             </div>
-            <Button variant="outline" size="sm">View All</Button>
+            <Link href="/admin/withdrawals">
+              <Button variant="outline" size="sm">View All</Button>
+            </Link>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
@@ -230,7 +230,9 @@ export default function AdminDashboardPage() {
             <CardTitle>Recent Registrations</CardTitle>
             <CardDescription>New users who recently signed up</CardDescription>
           </div>
-          <Button variant="outline" size="sm">View All Users</Button>
+          <Link href="/admin/users">
+            <Button variant="outline" size="sm">View All Users</Button>
+          </Link>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">

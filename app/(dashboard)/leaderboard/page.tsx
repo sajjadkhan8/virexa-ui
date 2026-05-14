@@ -2,7 +2,8 @@
 
 import { useState } from "react"
 import { motion } from "framer-motion"
-import { 
+import Link from "next/link"
+import {
   Trophy, 
   Medal, 
   Crown,
@@ -221,7 +222,9 @@ export default function LeaderboardPage() {
               <div className="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-gray-400 to-gray-500 flex items-center justify-center text-xl font-bold text-white mb-3">
                 {topTraders[1].avatar}
               </div>
-              <h3 className="font-semibold text-foreground">{topTraders[1].name}</h3>
+              <Link href={`/leaderboard/${topTraders[1].rank}`} className="font-semibold text-foreground hover:text-primary">
+                {topTraders[1].name}
+              </Link>
               <Badge className={`${getBadgeColor(topTraders[1].badge)} mt-2`}>{topTraders[1].badge}</Badge>
               <p className="text-2xl font-bold text-green-500 mt-3">+{topTraders[1].profit}%</p>
               <p className="text-sm text-muted-foreground">{topTraders[1].copiers.toLocaleString()} copiers</p>
@@ -244,7 +247,9 @@ export default function LeaderboardPage() {
               <div className="w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-yellow-500 to-amber-500 flex items-center justify-center text-2xl font-bold text-white mb-3 ring-4 ring-yellow-500/30">
                 {topTraders[0].avatar}
               </div>
-              <h3 className="font-semibold text-foreground text-lg">{topTraders[0].name}</h3>
+              <Link href={`/leaderboard/${topTraders[0].rank}`} className="font-semibold text-foreground text-lg hover:text-primary">
+                {topTraders[0].name}
+              </Link>
               <Badge className={`${getBadgeColor(topTraders[0].badge)} mt-2`}>{topTraders[0].badge}</Badge>
               <p className="text-3xl font-bold text-green-500 mt-3">+{topTraders[0].profit}%</p>
               <p className="text-sm text-muted-foreground">{topTraders[0].copiers.toLocaleString()} copiers</p>
@@ -268,7 +273,9 @@ export default function LeaderboardPage() {
               <div className="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-amber-600 to-amber-700 flex items-center justify-center text-xl font-bold text-white mb-3">
                 {topTraders[2].avatar}
               </div>
-              <h3 className="font-semibold text-foreground">{topTraders[2].name}</h3>
+              <Link href={`/leaderboard/${topTraders[2].rank}`} className="font-semibold text-foreground hover:text-primary">
+                {topTraders[2].name}
+              </Link>
               <Badge className={`${getBadgeColor(topTraders[2].badge)} mt-2`}>{topTraders[2].badge}</Badge>
               <p className="text-2xl font-bold text-green-500 mt-3">+{topTraders[2].profit}%</p>
               <p className="text-sm text-muted-foreground">{topTraders[2].copiers.toLocaleString()} copiers</p>
@@ -312,7 +319,9 @@ export default function LeaderboardPage() {
                       </div>
                       <div>
                         <div className="flex items-center gap-2">
-                          <p className="font-medium text-foreground">{trader.name}</p>
+                          <Link href={`/leaderboard/${trader.rank}`} className="font-medium text-foreground hover:text-primary">
+                            {trader.name}
+                          </Link>
                           {trader.verified && (
                             <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
                           )}
@@ -350,6 +359,9 @@ export default function LeaderboardPage() {
                           <span className="text-muted-foreground">-</span>
                         )}
                       </div>
+                      <Link href={`/leaderboard/${trader.rank}`}>
+                        <Button variant="outline" size="sm">Profile</Button>
+                      </Link>
                     </div>
                   </motion.div>
                 ))}
@@ -384,7 +396,9 @@ export default function LeaderboardPage() {
                         {trader.avatar}
                       </div>
                       <div>
-                        <p className="font-medium text-foreground">{trader.name}</p>
+                        <Link href={`/leaderboard/${trader.rank}`} className="font-medium text-foreground hover:text-primary">
+                          {trader.name}
+                        </Link>
                         <Badge className={`${getBadgeColor(trader.badge)} text-xs`}>{trader.badge}</Badge>
                       </div>
                     </div>
@@ -393,6 +407,9 @@ export default function LeaderboardPage() {
                         <p className="font-bold text-primary">{trader.winRate}%</p>
                         <p className="text-xs text-muted-foreground">Win Rate</p>
                       </div>
+                      <Link href={`/leaderboard/${trader.rank}`}>
+                        <Button variant="outline" size="sm">Profile</Button>
+                      </Link>
                     </div>
                   </motion.div>
                 ))}
@@ -427,7 +444,9 @@ export default function LeaderboardPage() {
                         {trader.avatar}
                       </div>
                       <div>
-                        <p className="font-medium text-foreground">{trader.name}</p>
+                        <Link href={`/leaderboard/${trader.rank}`} className="font-medium text-foreground hover:text-primary">
+                          {trader.name}
+                        </Link>
                         <Badge className={`${getBadgeColor(trader.badge)} text-xs`}>{trader.badge}</Badge>
                       </div>
                     </div>
@@ -436,6 +455,9 @@ export default function LeaderboardPage() {
                         <p className="font-bold text-foreground">{trader.copiers.toLocaleString()}</p>
                         <p className="text-xs text-muted-foreground">Copiers</p>
                       </div>
+                      <Link href={`/leaderboard/${trader.rank}`}>
+                        <Button variant="outline" size="sm">Profile</Button>
+                      </Link>
                     </div>
                   </motion.div>
                 ))}

@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { useSearchParams } from "next/navigation"
 import { motion } from "framer-motion"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -25,6 +26,8 @@ import {
 } from "lucide-react"
 
 export default function SettingsPage() {
+  const searchParams = useSearchParams()
+  const activeTab = searchParams.get("tab") ?? "profile"
   const [showApiKey, setShowApiKey] = useState(false)
   const stripeKey = process.env.NEXT_PUBLIC_STRIPE_KEY ?? ""
   const hasStripeKey = Boolean(stripeKey)
@@ -45,7 +48,7 @@ export default function SettingsPage() {
         <p className="text-muted-foreground">Manage your account preferences and security</p>
       </div>
 
-      <Tabs defaultValue="profile" className="space-y-6">
+      <Tabs defaultValue={activeTab} className="space-y-6">
         <TabsList className="bg-card border border-border">
           <TabsTrigger value="profile" className="gap-2">
             <User className="h-4 w-4" />

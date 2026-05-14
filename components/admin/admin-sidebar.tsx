@@ -18,7 +18,6 @@ import {
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { Separator } from "@/components/ui/separator"
 
 const navigation = [
   {
@@ -34,7 +33,10 @@ const navigation = [
       { name: "Users", href: "/admin/users", icon: Users },
       { name: "Strategies", href: "/admin/strategies", icon: Briefcase },
       { name: "Transactions", href: "/admin/transactions", icon: DollarSign },
+      { name: "Withdrawals", href: "/admin/withdrawals", icon: DollarSign },
       { name: "KYC Verification", href: "/admin/kyc", icon: Shield },
+      { name: "Fraud Monitoring", href: "/admin/fraud", icon: Shield },
+      { name: "Commissions", href: "/admin/commissions", icon: DollarSign },
     ]
   },
   {
