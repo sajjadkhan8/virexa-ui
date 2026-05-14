@@ -6,7 +6,24 @@ import { TrendingUp, Users, ArrowRight, Trophy, Shield, Zap } from 'lucide-react
 import Link from 'next/link'
 import { Area, AreaChart, ResponsiveContainer } from 'recharts'
 
-const strategies = [
+type StrategyBadge = 'top-performer' | 'low-risk' | 'trending'
+type StrategyRisk = 'Low' | 'Medium' | 'High'
+
+type Strategy = {
+  id: number
+  name: string
+  trader: string
+  avatar: string
+  roi: number
+  drawdown: number
+  followers: number
+  risk: StrategyRisk
+  badge: StrategyBadge
+  chartData: { value: number }[]
+  minInvestment: number
+}
+
+const strategies: Strategy[] = [
   {
     id: 1,
     name: 'Alpha Momentum',
@@ -15,7 +32,7 @@ const strategies = [
     roi: 45.8,
     drawdown: 8.2,
     followers: 3420,
-    risk: 'Medium' as const,
+    risk: 'Medium',
     badge: 'top-performer',
     chartData: [
       { value: 30 }, { value: 45 }, { value: 35 }, { value: 55 }, { value: 48 },
@@ -31,7 +48,7 @@ const strategies = [
     roi: 22.4,
     drawdown: 3.1,
     followers: 5120,
-    risk: 'Low' as const,
+    risk: 'Low',
     badge: 'low-risk',
     chartData: [
       { value: 40 }, { value: 42 }, { value: 45 }, { value: 48 }, { value: 50 },
@@ -47,7 +64,7 @@ const strategies = [
     roi: 68.3,
     drawdown: 15.4,
     followers: 1890,
-    risk: 'High' as const,
+    risk: 'High',
     badge: 'trending',
     chartData: [
       { value: 20 }, { value: 35 }, { value: 25 }, { value: 55 }, { value: 40 },

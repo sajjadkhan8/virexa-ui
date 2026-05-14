@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
@@ -21,9 +21,23 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { Search, TrendingUp, TrendingDown, Download, Filter } from "lucide-react"
+import { Search, TrendingUp, TrendingDown, Download } from "lucide-react"
 
-const trades = [
+type Trade = {
+  id: string
+  pair: string
+  type: "Buy" | "Sell"
+  strategy: string
+  openPrice: number
+  closePrice: number | null
+  volume: number
+  pnl: number
+  status: "Open" | "Closed"
+  openTime: string
+  closeTime: string | null
+}
+
+const trades: Trade[] = [
   {
     id: "T-001234",
     pair: "EUR/USD",
@@ -217,7 +231,7 @@ export default function TradesPage() {
   )
 }
 
-function TradesTable({ trades }: { trades: typeof trades }) {
+function TradesTable({ trades }: { trades: Trade[] }) {
   return (
     <div className="overflow-x-auto">
       <Table>
