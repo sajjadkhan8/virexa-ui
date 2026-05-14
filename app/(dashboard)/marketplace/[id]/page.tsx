@@ -3,6 +3,17 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog'
+import { Input } from '@/components/ui/input'
+import { Toaster } from '@/components/ui/toaster'
+import { useToast } from '@/hooks/use-toast'
 import { StrategyPerformanceChart } from '@/components/marketplace/strategy-performance-chart'
 import { StrategyStats } from '@/components/marketplace/strategy-stats'
 import { StrategyTradeHistory } from '@/components/marketplace/strategy-trade-history'
@@ -11,12 +22,12 @@ import {
   ArrowLeft, 
   Users, 
   TrendingUp, 
-  Shield, 
-  Clock, 
-  Target,
-  BarChart3,
+  Clock,
   Share2,
-  Star
+  Star,
+  Copy,
+  Loader2,
+  AlertTriangle,
 } from 'lucide-react'
 import Link from 'next/link'
 
@@ -44,10 +55,33 @@ const strategyData = {
 }
 
 export default function StrategyDetailsPage() {
+  const { toast } = useToast()
   const [showCopyModal, setShowCopyModal] = useState(false)
+  const [shareOpen, setShareOpen] = useState(false)
+  const [isCopyingLink, setIsCopyingLink] = useState(false)
+  const [shareError, setShareError] = useState('')
+
+  const shareUrl = `https://virexa.com/marketplace/${strategyData.id}`
+
+  const copyShareLink = async () => {
+    setIsCopyingLink(true)
+    setShareError('')
+    await new Promise((resolve) => setTimeout(resolve, 500))
+    try {
+      await navigator.clipboard.writeText(shareUrl)
+      setShareOpen(false)
+      toast({ title: 'Link copied', description: 'Strategy share link copied to clipboard.' })
+    } catch {
+      setShareError('Clipboard permission denied. You can copy the link manually.')
+    } finally {
+      setIsCopyingLink(false)
+    }
+  }
 
   return (
     <div className="space-y-6">
+      <Toaster />
+
       {/* Back Button */}
       <Link href="/marketplace" className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground">
         <ArrowLeft className="w-4 h-4" />
@@ -92,7 +126,7 @@ export default function StrategyDetailsPage() {
           </div>
 
           <div className="flex items-center gap-3">
-            <Button variant="outline" size="icon" className="shrink-0">
+            <Button variant="outline" size="icon" className="shrink-0" onClick={() => setShareOpen(true)}>
               <Share2 className="w-5 h-5" />
             </Button>
             <Button 
@@ -201,6 +235,33 @@ export default function StrategyDetailsPage() {
         onClose={() => setShowCopyModal(false)}
         strategy={strategyData}
       />
+
+      <Dialog open={shareOpen} onOpenChange={setShareOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Share strategy</DialogTitle>
+            <DialogDescription>Copy this public strategy link and share it with your network.</DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-2">
+            <Input value={shareUrl} readOnly className="font-mono text-xs" />
+            {shareError && (
+              <div className="rounded-lg border border-destructive/30 bg-destructive/10 p-3 text-sm text-destructive flex items-start gap-2">
+                <AlertTriangle className="h-4 w-4 mt-0.5" />
+                <span>{shareError}</span>
+              </div>
+            )}
+          </div>
+
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setShareOpen(false)} disabled={isCopyingLink}>Close</Button>
+            <Button onClick={copyShareLink} disabled={isCopyingLink} className="gap-2">
+              {isCopyingLink ? <Loader2 className="h-4 w-4 animate-spin" /> : <Copy className="h-4 w-4" />}
+              Copy Link
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }

@@ -14,7 +14,8 @@ import {
   FileText,
   Bell,
   LogOut,
-  TrendingUp
+  TrendingUp,
+  X
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
@@ -49,20 +50,30 @@ const navigation = [
   }
 ]
 
-export function AdminSidebar() {
+interface AdminSidebarProps {
+  isOpen?: boolean
+  onClose?: () => void
+}
+
+export function AdminSidebar({ isOpen = false, onClose }: AdminSidebarProps) {
   const pathname = usePathname()
 
-  return (
-    <aside className="fixed inset-y-0 left-0 z-50 hidden lg:flex w-72 flex-col border-r border-border bg-card">
+  const sidebarContent = (
+    <>
       {/* Logo */}
-      <div className="flex h-16 items-center gap-2 px-6 border-b border-border">
-        <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-accent">
-          <TrendingUp className="h-5 w-5 text-background" />
+      <div className="flex h-16 items-center justify-between gap-2 px-6 border-b border-border">
+        <div className="flex items-center gap-2">
+          <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-accent">
+            <TrendingUp className="h-5 w-5 text-background" />
+          </div>
+          <div>
+            <span className="font-bold text-foreground">ForexTrade</span>
+            <span className="text-xs text-muted-foreground block">Admin Panel</span>
+          </div>
         </div>
-        <div>
-          <span className="font-bold text-foreground">ForexTrade</span>
-          <span className="text-xs text-muted-foreground block">Admin Panel</span>
-        </div>
+        <Button variant="ghost" size="icon" className="lg:hidden" onClick={onClose}>
+          <X className="h-4 w-4" />
+        </Button>
       </div>
 
       {/* Navigation */}
@@ -80,6 +91,7 @@ export function AdminSidebar() {
                     <Link
                       key={item.name}
                       href={item.href}
+                      onClick={onClose}
                       className={cn(
                         "flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors",
                         isActive
@@ -105,6 +117,23 @@ export function AdminSidebar() {
           Sign Out
         </Button>
       </div>
-    </aside>
+    </>
+  )
+
+  return (
+    <>
+      <aside className="fixed inset-y-0 left-0 z-50 hidden lg:flex w-72 flex-col border-r border-border bg-card">
+        {sidebarContent}
+      </aside>
+
+      {isOpen && (
+        <>
+          <button className="fixed inset-0 z-40 bg-background/70 backdrop-blur-sm lg:hidden" onClick={onClose} aria-label="Close sidebar" />
+          <aside className="fixed inset-y-0 left-0 z-50 flex w-72 flex-col border-r border-border bg-card lg:hidden">
+            {sidebarContent}
+          </aside>
+        </>
+      )}
+    </>
   )
 }

@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'
 import { Area, AreaChart, ResponsiveContainer, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
+import { useIsMobile } from '@/hooks/use-mobile'
 
 const timeframes = ['1D', '1W', '1M', '3M', '1Y', 'ALL']
 
@@ -36,6 +37,7 @@ const dataByTimeframe: Record<string, ReturnType<typeof generateData>> = {
 }
 
 export function PortfolioChart() {
+  const isMobile = useIsMobile()
   const [activeTimeframe, setActiveTimeframe] = useState('1M')
   const data = dataByTimeframe[activeTimeframe]
   
@@ -67,7 +69,7 @@ export function PortfolioChart() {
         </div>
         
         {/* Timeframe Selector */}
-        <div className="flex items-center gap-1 p-1 bg-secondary rounded-lg">
+        <div className="flex items-center gap-1 p-1 bg-secondary rounded-lg overflow-x-auto">
           {timeframes.map((tf) => (
             <Button
               key={tf}
@@ -75,7 +77,7 @@ export function PortfolioChart() {
               size="sm"
               onClick={() => setActiveTimeframe(tf)}
               className={cn(
-                'h-8 px-3 text-xs font-medium',
+                'h-9 min-w-[44px] px-3 text-xs font-medium',
                 activeTimeframe === tf
                   ? 'bg-background text-foreground shadow-sm'
                   : 'text-muted-foreground hover:text-foreground'
@@ -103,9 +105,12 @@ export function PortfolioChart() {
               axisLine={false}
               tickLine={false}
               tick={{ fontSize: 12, fill: 'oklch(0.6 0 0)' }}
+              interval={isMobile ? 'preserveStartEnd' : 0}
+              minTickGap={isMobile ? 24 : 12}
               dy={10}
             />
             <YAxis
+              hide={isMobile}
               axisLine={false}
               tickLine={false}
               tick={{ fontSize: 12, fill: 'oklch(0.6 0 0)' }}

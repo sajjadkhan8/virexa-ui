@@ -2,13 +2,28 @@
 
 import { motion } from 'framer-motion'
 import Link from 'next/link'
+import dynamic from 'next/dynamic'
 import { Button } from '@/components/ui/button'
-import { BalanceCards } from '@/components/dashboard/balance-cards'
-import { PortfolioChart } from '@/components/dashboard/portfolio-chart'
-import { ActiveStrategies } from '@/components/dashboard/active-strategies'
-import { RecentTrades } from '@/components/dashboard/recent-trades'
-import { TopTraders } from '@/components/dashboard/top-traders'
-import { QuickActions } from '@/components/dashboard/quick-actions'
+import { Skeleton } from '@/components/ui/skeleton'
+
+const BalanceCards = dynamic(() => import('@/components/dashboard/balance-cards').then((m) => m.BalanceCards), {
+  loading: () => <Skeleton className="h-36 w-full rounded-2xl" />,
+})
+const PortfolioChart = dynamic(() => import('@/components/dashboard/portfolio-chart').then((m) => m.PortfolioChart), {
+  loading: () => <Skeleton className="h-80 w-full rounded-2xl" />,
+})
+const ActiveStrategies = dynamic(() => import('@/components/dashboard/active-strategies').then((m) => m.ActiveStrategies), {
+  loading: () => <Skeleton className="h-72 w-full rounded-2xl" />,
+})
+const RecentTrades = dynamic(() => import('@/components/dashboard/recent-trades').then((m) => m.RecentTrades), {
+  loading: () => <Skeleton className="h-96 w-full rounded-2xl" />,
+})
+const TopTraders = dynamic(() => import('@/components/dashboard/top-traders').then((m) => m.TopTraders), {
+  loading: () => <Skeleton className="h-72 w-full rounded-2xl" />,
+})
+const QuickActions = dynamic(() => import('@/components/dashboard/quick-actions').then((m) => m.QuickActions), {
+  loading: () => <Skeleton className="h-80 w-full rounded-2xl" />,
+})
 
 export default function DashboardPage() {
   return (

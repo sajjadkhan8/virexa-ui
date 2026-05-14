@@ -15,11 +15,15 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Bell, Search, Menu, Settings, LogOut, User } from "lucide-react"
 
-export function AdminHeader() {
+interface AdminHeaderProps {
+  onMenuClick?: () => void
+}
+
+export function AdminHeader({ onMenuClick }: AdminHeaderProps) {
   return (
     <header className="sticky top-0 z-40 flex h-16 items-center gap-4 border-b border-border bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/60 px-6">
       {/* Mobile menu button */}
-      <Button variant="ghost" size="icon" className="lg:hidden">
+      <Button variant="ghost" size="icon" className="lg:hidden" onClick={onMenuClick}>
         <Menu className="h-5 w-5" />
       </Button>
 

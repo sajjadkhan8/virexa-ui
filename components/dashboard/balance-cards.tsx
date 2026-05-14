@@ -52,14 +52,14 @@ const cards = [
 
 export function BalanceCards() {
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+    <div className="-mx-1 flex gap-3 overflow-x-auto px-1 snap-x snap-mandatory lg:mx-0 lg:grid lg:grid-cols-4 lg:overflow-visible lg:px-0 lg:gap-6">
       {cards.map((card, index) => (
         <motion.div
           key={card.title}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: index * 0.1 }}
-          className={`bg-gradient-to-br ${card.color} border border-border rounded-2xl p-4 lg:p-6`}
+          className={`min-w-[78%] snap-start bg-gradient-to-br ${card.color} border border-border rounded-2xl p-4 lg:p-6 lg:min-w-0`}
         >
           <div className="flex items-center justify-between mb-4">
             <div className={`flex items-center justify-center w-10 h-10 rounded-xl ${card.iconBg}`}>
